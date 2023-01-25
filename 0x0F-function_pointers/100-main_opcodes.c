@@ -1,30 +1,42 @@
-#include "3-calc.h"
-#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * get_op_func - selects the correct operation toperform
- * @s: operation to perform
- * Return: pointer to the correct function
+ * main - prints its own opcodes
+ * @argc: number of arguments
+ * @argv: array of arguments
+ *
+ * Return: Always 0 (Success)
  */
-
-int (*get_op_func(char *s))(int, int)
+int main(int argc, char *argv[])
 {
-	op_t ops[] = {
-		{"+", op_add},
-		{"-", op_sub},
-		{"*", op_mul},
-		{"/", op_div},
-		{"%", op_mod},
-		{NULL, NULL}
-	};
-	int i;
+	int bytes, i;
+	char *arr;
 
-	i = 0;
-	while (ops[i].op != NULL)
+	if (argc != 2)
 	{
-		if (strcmp(s, ops[i].op) == 0)
-			break;
-		i++;
+		printf("Error\n");
+		exit(1);
 	}
-	return (ops[i].f);
+
+	bytes = atoi(argv[1]);
+
+	if (bytes < 0)
+	{
+		printf("Error\n");
+		exit(2);
+	}
+
+	arr = (char *)main;
+
+	for (i = 0; i < bytes; i++)
+	{
+		if (i == bytes - 1)
+		{
+			printf("%02hhx\n", arr[i]);
+			break;
+		}
+		printf("%02hhx ", arr[i]);
+	}
+	return (0);
 }
